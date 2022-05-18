@@ -23,9 +23,12 @@ defun copiaMemoria
     // Implementación aquí
     // R0: origen, R1: destino, R2: longitud
     cbz R2, 1f //salta a la rutina 1 si la longitud es cero
-
-    ldrb R3, [R0]   
-    strb R3, [R1]
+    ldrb R3, [R0], #1 //es importante razonar como funcionan estas lineas de codigo que escribiste, ver con el debug y como trabajan los registros y memoria (tienes ayuda de un video)
+    0:
+        strb R3, [R1], #1
+        ldrb R3, [R0], #1
+        cmp R3, #0
+        bne 0b //es importante chequear con el debugger como se realiza la simulacion
 
     1:
 
