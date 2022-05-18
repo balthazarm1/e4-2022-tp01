@@ -69,7 +69,10 @@ defun mayusculaEnLugar
         strb R3, [R0, #(-1)]
         ldrb R3, [R0], #1
         cmp R3, #0
+        beq 2f
+        subs R1, #1
         bne 0b
+    2:
     
     bx lr
 endfun mayusculaEnLugar
