@@ -39,7 +39,7 @@ endfun copiaMemoria
 defun copiaCadena
     // Implementación aquí
     // R0: origen, R1: destino, R2: longitudMaxima
-    cbz R2, 1f //salta a la rutina 1 si la longitud es cero
+    cbz R2, 2f //salta a la rutina 1 si la longitud es cero
     ldrb R3, [R0], #1
     sub R2, #1
 
@@ -55,6 +55,8 @@ defun copiaCadena
     1:
         mov R2, #0
         strb R2, [R1] 
+    
+    2:
 
     bx lr
 endfun copiaCadena
