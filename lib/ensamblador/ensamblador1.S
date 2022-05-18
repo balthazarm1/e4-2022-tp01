@@ -59,7 +59,18 @@ endfun copiaCadena
 
 defun mayusculaEnLugar
     // Implementación aquí
-    // R0: cadena, R1: longitudMaxima
+    // R0: cadena, R1: longitudMaxima  | no hay  destino
+    ldrb R3, [R0], #1
+    0:
+        subs R2, R3, #0x00000060
+        bmi  1f //si la diferencia da un 0 o positivo, no lo hago mayuscula
+        sub R3, R3, #0x00000020
+    1:
+        strb R3, [R0, #(-1)]
+        ldrb R3, [R0], #1
+        cmp R3, #0
+        bne 0b
+    
     bx lr
 endfun mayusculaEnLugar
 
