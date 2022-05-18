@@ -62,9 +62,9 @@ defun mayusculaEnLugar
     // R0: cadena, R1: longitudMaxima  | no hay  destino
     ldrb R3, [R0], #1
     0:
-        subs R2, R3, #0x00000060
-        bmi  1f //si la diferencia da un 0 o positivo, no lo hago mayuscula
-        sub R3, R3, #0x00000020
+        subs R2, R3, #0x00000060 //61 hex es a minuscula
+        bmi  1f //si la diferencia da un 0 o positivo lo hago mayuscula.. si negativo no lo hago mayus
+        sub R3, R3, #0x00000020 //le resto 20 para hacerlo mayus
     1:
         strb R3, [R0, #(-1)]
         ldrb R3, [R0], #1
@@ -83,9 +83,10 @@ defun minusculaEnLugar
         ldrb R3, [R0], #1
     0:
         subs R2, R3, #0x00000060
-        bpl  1f //si la diferencia da un 0 o positivo, no lo hago mayuscula
-        adds R3, R3, #0x00000020
-        bhi 1f //si es menor que (40+20) 60 la suma => le resto para que sea 
+        bpl  1f //si la diferencia da un 0 o positivo, no hace falta hacerlo minus.. si da negativo lo hago minus
+        adds R3, R3, #0x00000020 //ahora le sumo 20 para hacerlo minus si es necesario
+        cmp R3, #0x00000060 //si es menor que (40[ 40 es un valor antes a las mayusculas]+20) 60 la suma => le resto para que sea  | si es mayor que sea debe pasar de largo
+        bcs 1f
         3:
             sub R3, R3, #0x00000020
         
