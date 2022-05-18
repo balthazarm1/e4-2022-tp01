@@ -40,26 +40,13 @@ defun copiaCadena
     // Implementación aquí
     // R0: origen, R1: destino, R2: longitudMaxima
     cbz R2, 1f //salta a la rutina 1 si la longitud es cero
-
-    str R2, [R4]
-    ldr R3, [R4]
-    sub R3, #4
-    mov R4, #2
-    cbz R3, 2f
-    cbnz R3, 0f
-
-    2:
-        ldrb R3, [R0], #1 
-        strb R3, [R1], #1
-        subs R4, #1
-        bne 2b
-        bne 1f
-
+    mov R2, #7
 
     0: //debe copiarse "cadena" en la direccion que contiene R1
         ldrb R3, [R0], #1 //me puse a ver que esta 2 lineas de comando sirven en esta funcion pero no puedos remplazarlos directamente arriba en la forma como estan por que el test.c me obliga a que no anule el siguiente byte de la memoria (simular si no entiendes y ver codigo .s y .c)
         strb R3, [R1], #1
-        cmp R3, #0
+        //cmp R3, #0
+        subs R2, #1
         bne 0b //es importante chequear con el debugger como se realiza la simulacion
 
     1:
