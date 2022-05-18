@@ -80,5 +80,23 @@ endfun mayusculaEnLugar
 defun minusculaEnLugar
     // Implementación aquí
     // R0: cadena, R1: longitudMaxima
+        ldrb R3, [R0], #1
+    0:
+        subs R2, R3, #0x00000060
+        bpl  1f //si la diferencia da un 0 o positivo, no lo hago mayuscula
+        adds R3, R3, #0x00000020
+        bhi 1f //si es menor que (40+20) 60 la suma => le resto para que sea 
+        3:
+            sub R3, R3, #0x00000020
+        
+    1:
+        strb R3, [R0, #(-1)]
+        ldrb R3, [R0], #1
+        cmp R3, #0
+        beq 2f
+        subs R1, #1
+        bne 0b
+    2:
+
     bx lr
 endfun minusculaEnLugar
