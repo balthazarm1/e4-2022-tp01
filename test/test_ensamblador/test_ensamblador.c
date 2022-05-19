@@ -132,6 +132,7 @@ static void copiaCadena_debe_respetar_el_espacio_de_destino_0(void)
 static void mayusculaEnLugar_debe_pasar_a_mayuscula_una_cadena(void)
 {
     char cadena[] = "CaDeNa123";
+
     const char esperado[]="CADENA123";
     mayusculaEnLugar(cadena,sizeof(cadena));
     TEST_ASSERT_EQUAL_CHAR_ARRAY(esperado,cadena,sizeof(esperado));
